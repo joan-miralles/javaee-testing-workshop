@@ -7,3 +7,7 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
+junit-hello/.idea*
+hello/.idea*
+junit-hello/*.iml
+hello/*.iml
