@@ -5,8 +5,8 @@ import com.airhacks.hello.business.order.control.PaymentProcessor;
 
 public class OrderProcessor {
 
-    private LegacyAuthenticator authenticator;
-    private PaymentProcessor paymentProcessor;
+    LegacyAuthenticator authenticator;
+    PaymentProcessor paymentProcessor;
 
     public OrderProcessor() {
         this.authenticator = new LegacyAuthenticator();
