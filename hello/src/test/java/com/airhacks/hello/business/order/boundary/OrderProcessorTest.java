@@ -5,7 +5,10 @@ import com.airhacks.hello.business.order.control.PaymentProcessor;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class OrderProcessorTest {
     OrderProcessor cut;
@@ -14,17 +17,18 @@ public class OrderProcessorTest {
     public void init() {
         this.cut = new OrderProcessor();
         this.cut.paymentProcessor = mock(PaymentProcessor.class);
+        this.cut.authenticator = mock(LegacyAuthenticator.class);
     }
 
     @Test
     public void successfulOrder() {
+        when(this.cut.authenticator.authenticate()).thenReturn(true);
         this.cut.order();
         verify(this.cut.paymentProcessor, times(1)).pay();
     }
 
     @Test(expected = IllegalStateException.class)
     public void invalidUser() {
-        this.cut.authenticator = mock(LegacyAuthenticator.class);
         when(this.cut.authenticator.authenticate()).thenReturn(false);
         this.cut.order();
     }
