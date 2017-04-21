@@ -11,3 +11,5 @@ junit-hello/.idea*
 hello/.idea*
 junit-hello/*.iml
 hello/*.iml
+hello/derby.log
+hello/testDB/

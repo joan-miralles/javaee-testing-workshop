@@ -3,7 +3,9 @@ package com.airhacks.hello.business.order.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Table(name = "T_ORDER")
 @Entity
 public class Order {
 
