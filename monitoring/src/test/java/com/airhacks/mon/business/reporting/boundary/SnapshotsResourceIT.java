@@ -20,7 +20,7 @@ public class SnapshotsResourceIT extends JerseyTest {
 
     @Test
     public void crud() {
-        Response response = target("snapshots").request().get();
+        Response response = target("find").request().get();
         assertThat(response.getStatus(), is(200));
         JsonObject result = response.readEntity(JsonObject.class);
         System.out.println("result = " + result);
