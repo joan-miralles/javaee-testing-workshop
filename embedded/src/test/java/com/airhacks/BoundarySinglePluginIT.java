@@ -4,7 +4,7 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -14,23 +14,21 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Arquillian.class)
-public class InjectEmAllIT {
-
+public class BoundarySinglePluginIT {
     @Inject
-    LoggerTestSupport support;
+    Boundary boundary;
 
     @Deployment
-    public static WebArchive create() {
-        return ShrinkWrap.create(WebArchive.class).
-                addClasses(LoggerProducer.class, LoggerTestSupport.class).
-                addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class).
+                addClasses(LoggerProducer.class, Boundary.class, FriendlyMessenger.class, Control.class).
+                addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
     @Test
-    public void loggerConfiguredProperly() {
-        String expected = support.getClass().getName();
-        String actual = support.getLog().getName();
+    public void boundarySinglePlugin() {
+        String expected = ":-) day!";
+        String actual = boundary.greeting();
         assertThat(actual, is(expected));
     }
-
 }
